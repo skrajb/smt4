@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Dashboard | Smartech Typing Tutor</title>
+
+  <script src="themes.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="themes.css">
+  <link rel="stylesheet" href="sidebar.css" />
+
+  <script src="activation.js"></script>
+  <script src="sheet-sync.js"></script>
+<script src="db.js"></script>
+  <script src="exercises.js"></script>
+  <script src="profile.js"></script>
+  <script src="sidebar.js"></script>
+
+  <style>
+    /* Page-specific tweaks only — everything else comes from styles.css */
+    .course-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; }
+    .course-card{ text-align:center; }
+    .course-card p{ color:var(--muted); font-size:14px; min-height:42px; }
+    .mini-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px; margin-top:6px; }
+    .mini-stat{ background:var(--bg); border-radius:var(--radius-sm); padding:14px; text-align:center; }
+    .mini-stat .val{ font-size:1.5rem; font-weight:800; color:var(--primary); font-family:var(--font-heading); }
+    .mini-stat .lbl{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+    /* ===============================
+       Hero entrance — one orchestrated
+       reveal on load, not scattered
+       scroll/float effects throughout
+       the page.
+    ================================= */
+    #intro .intro-content, #intro .intro-image {
+      opacity: 0;
+      animation: smartechHeroIn 0.7s cubic-bezier(.2,.7,.3,1) forwards;
+    }
+    #intro .intro-image { animation-delay: 0.12s; }
+
+    @keyframes smartechHeroIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Language course cards — icon + colored top accent instead of emoji */
+    .course-card { position: relative; overflow: hidden; padding-top: 30px; }
+    .course-card::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--card-accent, var(--accent));
+    }
+    .course-card .course-icon {
+      width: 42px; height: 42px;
+      margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 12px;
+      background: var(--gold-soft);
+      color: var(--ink);
+    }
+    .course-card .course-icon svg { width: 22px; height: 22px; }
+
+    td { text-align: center; }
+  </style>
+</head>
+
+<body>
+<div class="main">
+
+  <!-- ================== HERO ================== -->
+  <section id="intro">
+    <div class="intro-content">
+      <h1>Welcome to <span class="highlight">Smartech Typing Tutor</span></h1>
+
+      <p>Structured typing practice for competitive examinations — PSSSB, SSC CGL, RRB and other government recruitment tests — built to simulate real exam conditions so you build speed, accuracy and confidence before the day it counts.</p>
+
+      <div class="intro-buttons">
+        <a href="demo.html" class="btn black-btn">Try 5-Min Demo</a>
+        <a href="engtutor.html" class="btn gold-btn">Start English Practice</a>
+        <a href="pbitutor.html" class="btn black-btn">Start Punjabi Practice</a>
+        <a href="hinditutor.html" class="btn black-btn">Start Hindi Practice</a>
+      </div>
+
+      <div class="quote-strip" id="quoteBox"></div>
+    </div>
+    <div class="intro-image">
+      <img src="KB.png" alt="Typing practice illustration">
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- ================== COURSE QUICK ACCESS ================== -->
+    <div class="course-grid" style="margin-bottom:22px;">
+      <a href="demo.html" style="text-decoration:none;">
+        <div class="card course-card" style="--card-accent:var(--ink);">
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M10.2 8.6 15.6 12l-5.4 3.4V8.6Z"/></svg></div>
+          <h2 style="border:none;padding:0;">5-Minute Demo</h2>
+          <p>Try a real timed typing test in English, Punjabi or Hindi before you start the courses.</p>
+        </div>
+      </a>
+      <a href="engtutor.html" style="text-decoration:none;">
+        <div class="card course-card" style="--card-accent:var(--accent);">
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M6.5 13.5h.01M17 13.5h.01M9 13.5h6"/></svg></div>
+          <h2 style="border:none;padding:0;">English Typing</h2>
+          <p>Lessons, guided drills and full-length practice exams for English typing speed tests.</p>
+        </div>
+      </a>
+      <a href="pbitutor.html" style="text-decoration:none;">
+        <div class="card course-card" style="--card-accent:var(--gold);">
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M6.5 13.5h.01M17 13.5h.01M9 13.5h6"/></svg></div>
+          <h2 style="border:none;padding:0;">Punjabi Typing</h2>
+          <p>Master the Punjabi keyboard layout with structured lessons and exam-style tests.</p>
+        </div>
+      </a>
+      <a href="hinditutor.html" style="text-decoration:none;">
+        <div class="card course-card" style="--card-accent:var(--green);">
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M6.5 13.5h.01M17 13.5h.01M9 13.5h6"/></svg></div>
+          <h2 style="border:none;padding:0;">Hindi Typing</h2>
+          <p>Build Hindi typing speed and accuracy with the same proven exam-style format.</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- ================== YOUR PROGRESS SNAPSHOT ================== -->
+    <div class="card" id="progressSnapshotCard">
+      <h2>Your Progress at a Glance</h2>
+      <div class="mini-stats" id="miniStats"></div>
+      <div style="text-align:right;margin-top:12px;">
+        <a href="progress.html" class="link-btn">View full progress →</a>
+      </div>
+    </div>
+
+  <div class="card">
+    <h2>🏆 Today's Top 10 Leaderboard</h2>
+
+    <div id="leaderboardStatus">Loading...</div>
+
+    <table id="leaderboardTable" style="display:none;" width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Language</th>
+                <th>Speed</th>
+                <th>Accuracy</th>
+            </tr>
+        </thead>
+
+        <tbody id="leaderboardBody"></tbody>
+    </table>
+</div>
+
+    <!-- ================== FORMULA CARD ================== -->
+    <div class="card">
+      <h2>Typing Result Calculation</h2>
+      <p style="font-size:18px; font-weight:700; text-align:center; color:var(--primary);">
+        Gross Speed (WPM) = (Total Characters ÷ 5 ÷ Time in Minutes)
+      </p>
+      <p style="text-align:center; margin-top:6px; color:var(--muted);">
+        <i>1 Word = 5 Characters</i>
+      </p>
+    </div>
+
+	
+
+    <!-- ================== ADMIN: MANAGE EXERCISES (hidden by default) ================== -->
+    <div class="card" id="typing-importance" style="display:none;">
+      <h2>Manage Exercises</h2>
+      <p style="color:var(--muted);font-size:14px;">
+        Exercises download automatically from the GitHub file below and are shared by the Chunk and Long Paragraph pages.
+        In that file, <code>### English</code> shows an exercise in both lists, <code>### English Chunk</code> in the Chunk list only,
+        and <code>### English Paragraph</code> in the Long Paragraph list only (same for Punjabi and Hindi).
+      </p>
+
+      <div>
+        <input type="file" id="exerciseFile">
+        <button onclick="loadExercisesFromFile()">Add Exercises From File</button>
+      </div>
+
+      <div>
+        <input type="text" id="exerciseFileUrl" placeholder="Paste exercises file URL">
+        <button onclick="loadExercisesFromUrl()">Import Exercises from URL</button>
+      </div>
+      <p id="exerciseSourceInfo" style="font-size:13px;color:var(--muted);"></p>
+
+      <h3 style="margin-top:15px;">Add a special exercise on this computer</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <select id="exerciseLang">
+          <option>English</option>
+          <option>Punjabi</option>
+          <option>Hindi</option>
+        </select>
+        <select id="exerciseMode">
+          <option value="both">Chunk and Long Paragraph</option>
+          <option value="chunk">Chunk only</option>
+          <option value="paragraph">Long Paragraph only</option>
+        </select>
+      </div>
+      <input type="text" id="exerciseTitle" placeholder="Exercise title">
+      <textarea id="exerciseText" rows="5" placeholder="Exercise text"></textarea>
+      <button onclick="addExercise()">Add Exercise</button>
+
+      <div id="exerciseListCustom"></div>
+      <br>
+      <button class="delete-btn" onclick="deleteAllExercises()" id="deleteAllButton">Delete My Added Exercises</button>
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:13px;margin:30px 0 10px;">
+      © 2026 Smartech Education Computer Institute — All Rights Reserved.
+    </p>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const statusBtn = document.getElementById('statusBtn');
+    if (statusBtn) {
+      statusBtn.addEventListener('click', async () => {
+        try {
+          const activated = await window.electronAPI.isActivated();
+          document.getElementById('out').textContent = JSON.stringify({ activated }, null, 2);
+        } catch (err) {
+          document.getElementById('out').textContent = 'Error: ' + err.message;
+        }
+      });
+    }
+
+    // ---- Progress snapshot (reads SmartechDB written by testpage.html) ----
+    const miniStats = document.getElementById('miniStats');
+    if (miniStats && window.SmartechDB) {
+      const stats = SmartechDB.getStats();
+      if (!stats.totalTests) {
+        miniStats.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);margin:0;">No tests taken yet — start a course above to see your stats here.</p>';
+      } else {
+        const chartIcon = '<div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M11 20V4M18 20v-7"/><path d="M3 20h18"/></svg></div>';
+        const keyIcon = '<div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12 19 4M16 6l2.5 2.5M13.2 8.8 15.5 11"/></svg></div>';
+        let html = `<div class="mini-stat">${chartIcon}<div class="val">${stats.totalTests}</div><div class="lbl">Tests Taken</div></div>`;
+        Object.keys(stats.byLanguage).forEach(lang => {
+          const b = stats.byLanguage[lang];
+          html += `<div class="mini-stat">${keyIcon}<div class="val">${b.bestSpeed}</div><div class="lbl">${lang} Best WPM</div></div>`;
+        });
+        miniStats.innerHTML = html;
+      }
+    } else if (miniStats) {
+      miniStats.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);margin:0;">Start a course above to see your stats here.</p>';
+    }
+  });
+  </script>
+
+  <script>
+  /* ============================================================
+     Smartech Typing Tutor — Home Page Script
+     (Rewritten for clarity; was minified/obfuscated. Also removes
+     references to a login modal and GOOGLE_APP_URL that no longer
+     exist in this page and were throwing silent errors.)
+     ============================================================ */
+
+  // ---- Rotating motivational quote ----
+  const quotes = [
+    "Every word you type is a step closer to success.",
+    "Practice is the key to perfection.",
+    "Consistency turns beginners into champions.",
+    "The keyboard is your instrument — play it daily."
+  ];
+  let qIndex = 0;
+  const quoteBox = document.getElementById('quoteBox');
+  function showQuote() {
+    if (!quoteBox) return;
+    quoteBox.style.transition = 'opacity .4s ease';
+    quoteBox.style.opacity = 0;
+    setTimeout(() => {
+      quoteBox.innerText = quotes[qIndex];
+      quoteBox.style.opacity = 1;
+      qIndex = (qIndex + 1) % quotes.length;
+    }, 400);
+  }
+  showQuote();
+  setInterval(showQuote, 10000);
+
+  // ---- Secret shortcut: type "manage" anywhere on the dashboard to
+  // open/close the Manage Exercises panel below. Ignored while focus is
+  // in a text field, so it never interferes with typing elsewhere on
+  // the page. ----
+  (function () {
+    const TRIGGER = "manage";
+    let buffer = "";
+    document.addEventListener("keydown", (e) => {
+      const tag = (document.activeElement && document.activeElement.tagName) || "";
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key.length !== 1) return; // ignore Shift, Enter, Tab, etc.
+      buffer = (buffer + e.key.toLowerCase()).slice(-TRIGGER.length);
+      if (buffer === TRIGGER) {
+        const panel = document.getElementById("typing-importance");
+        if (panel) {
+          const opening = panel.style.display === "none";
+          panel.style.display = opening ? "block" : "none";
+          if (opening) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        buffer = "";
+      }
+    });
+  })();
+
+  // ---- Exercise manager ----
+  // The exercise lists themselves are handled by exercises.js (GitHub file,
+  // cached on the device). This panel only manages the download and any
+  // extra exercises added on this computer, which survive every re-download.
+  const MODE_LABEL = { both: 'Chunk + Long', chunk: 'Chunk only', paragraph: 'Long only' };
+
+  function escapeHTML(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function renderCustomExercises() {
+    const info = document.getElementById('exerciseSourceInfo');
+    if (info) {
+      info.textContent = 'Downloaded from GitHub: ' + SmartechExercises.remoteCount() + ' exercises.';
+    }
+    const container = document.getElementById('exerciseListCustom');
+    if (!container) return;
+    const list = SmartechExercises.custom.list();
+    container.innerHTML = list.map((ex, i) => `
+        <div class="card">
+          <b>${i + 1}. ${escapeHTML(ex.title)}</b> <small>(${escapeHTML(ex.lang)} - ${MODE_LABEL[ex.mode] || MODE_LABEL.both})</small>
+          <p>${escapeHTML((ex.text || '').slice(0, 100))}...</p>
+          <button class="delete-btn" data-index="${i}">Delete</button>
+        </div>`).join('');
+
+    container.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteExercise(Number(btn.dataset.index)));
+    });
+  }
+
+  function addExercise() {
+    const lang = document.getElementById('exerciseLang').value;
+    const mode = document.getElementById('exerciseMode').value;
+    const titleEl = document.getElementById('exerciseTitle');
+    const textEl = document.getElementById('exerciseText');
+    const title = titleEl.value.trim();
+    const text = textEl.value.trim();
+    if (!title || !text) return alert('Both fields required');
+
+    SmartechExercises.custom.add({ lang, mode, title, text });
+    titleEl.value = '';
+    textEl.value = '';
+    renderCustomExercises();
+  }
+
+  function deleteExercise(index) {
+    SmartechExercises.custom.remove(index);
+    renderCustomExercises();
+  }
+
+  function deleteAllExercises() {
+    SmartechExercises.custom.clear();
+    renderCustomExercises();
+  }
+
+  async function loadExercisesFromUrl() {
+    const urlInput = document.getElementById('exerciseFileUrl');
+    const url = urlInput ? urlInput.value.trim() : '';
+    if (!url) return alert('Please enter a valid file URL!');
+    const ok = await SmartechExercises.refresh({ force: true, url });
+    if (!ok) return alert('❌ Failed to load exercises. Check your URL or file format.');
+    renderCustomExercises();
+  }
+
+  function loadExercisesFromFile() {
+    const fileInput = document.getElementById('exerciseFile');
+    if (!fileInput || !fileInput.files || !fileInput.files[0]) return alert('Select a file first');
+    const reader = new FileReader();
+    reader.onload = e => {
+      const added = SmartechExercises.custom.importText(e.target.result || '');
+      if (!added) alert('No exercises found. Each one needs a header like "### English" followed by the text between two --- lines.');
+      renderCustomExercises();
+    };
+    reader.readAsText(fileInput.files[0], 'utf-8');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const urlInput = document.getElementById('exerciseFileUrl');
+    if (urlInput) urlInput.value = SmartechExercises.getSourceUrl();
+    renderCustomExercises();
+    SmartechExercises.refresh().then(renderCustomExercises);
+    loadLeaderboard();
+  });
+
+  // Basic copy-protection for this commercial software (kept from the
+  // original app). This is a UX deterrent only, not real security.
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+  // Cards render immediately — no scroll-triggered reveal (the hero
+  // already gets its one entrance animation via CSS above).
+
+  async function loadLeaderboard() {
+
+    const status = document.getElementById("leaderboardStatus");
+    const table = document.getElementById("leaderboardTable");
+    const body = document.getElementById("leaderboardBody");
+
+    if (!window.SmartechSheet || !SmartechSheet.isConfigured()) {
+        status.textContent = "Leaderboard unavailable.";
+        return;
+    }
+
+    try {
+
+        const data = await SmartechSheet.getTodayLeaderboard();
+
+        const list = Array.isArray(data.sample) ? data.sample : [];
+
+        if (!list.length) {
+            status.textContent = "No qualified students today.";
+            return;
+        }
+
+        status.style.display = "none";
+        table.style.display = "table";
+
+        const rankBadge = (i) => {
+            const rankClass = i < 3 ? ` rank-${i + 1}` : "";
+            return `<span class="rank-badge${rankClass}">${i + 1}</span>`;
+        };
+
+        body.innerHTML = list.map((s, i) => `
+            <tr>
+                <td>${rankBadge(i)}</td>
+                <td>${s.name}</td>
+                <td>${s.language}</td>
+                <td>${s.speed} WPM</td>
+                <td>${s.accuracy}%</td>
+            </tr>
+        `).join("");
+
+    } catch (err) {
+        console.error(err);
+        status.textContent = "Unable to load leaderboard.";
+    }
+
+  }
+  </script>
+
+</div>
+</body>
+</html>

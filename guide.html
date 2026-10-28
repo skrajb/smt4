@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>User Guide | Smartech Typing Tutor</title>
+<link rel="icon" type="image/png" href="icon.ico">
+<script src="themes.js"></script>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="sidebar.css">
+<script src="profile.js"></script>
+<script src="sidebar.js"></script>
+<style>
+  .guide-wrap{ max-width:1000px; margin:26px auto 60px; padding:0 24px; }
+  .toc{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+  .toc a{ text-decoration:none; font-size:13.5px; font-weight:600; color:var(--accent); background:var(--card);
+          border:1px solid var(--border); border-radius:999px; padding:7px 14px; }
+  .toc a:hover{ border-color:var(--accent); }
+  .step{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm);
+         padding:26px 28px; margin-bottom:22px; scroll-margin-top:20px; }
+  .step .num{ display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%;
+              background:var(--ink); color:#fff; font-weight:700; font-size:14px; margin-right:10px; }
+  .step h2{ display:flex; align-items:center; margin:0 0 10px; border:none; padding:0; font-size:1.35rem; color:var(--ink); }
+  .step p, .step li{ font-size:15px; color:var(--text); }
+  .step ol, .step ul{ padding-left:22px; margin:8px 0 14px; }
+  .step li{ margin-bottom:5px; }
+  .shot{ margin:16px 0 4px; border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden;
+         box-shadow:var(--shadow-md); background:#fff; }
+  .shot img{ display:block; width:100%; height:auto; cursor:zoom-in; }
+  .shot figcaption{ font-size:12.5px; color:var(--muted); padding:8px 14px; border-top:1px solid var(--border); background:var(--bg); }
+  figure{ margin:0; }
+  .tip{ background:var(--gold-soft); border-left:4px solid var(--gold); border-radius:var(--radius-sm); padding:10px 14px;
+        font-size:14px; margin:14px 0 0; }
+  .tip b{ color:var(--gold-dark); }
+  table.ref{ width:100%; border-collapse:collapse; font-size:14px; margin-top:8px; }
+  table.ref th, table.ref td{ border:1px solid var(--border); padding:9px 12px; text-align:left; }
+  table.ref th{ background:var(--bg); }
+  kbd{ background:var(--bg); border:1px solid var(--border); border-bottom-width:2px; border-radius:5px; padding:1px 7px; font-family:var(--font-mono); font-size:13px; }
+  #lightbox{ position:fixed; inset:0; background:rgba(5,15,29,.88); display:none; align-items:center; justify-content:center; z-index:20000; padding:24px; cursor:zoom-out; }
+  #lightbox img{ max-width:100%; max-height:100%; border-radius:10px; box-shadow:var(--shadow-lg); }
+  @media print{ #menuToggle, .sidebar, .toc, .app-page-head .aph-actions{ display:none !important; } .main{ margin-left:0 !important; } .step{ break-inside:avoid; box-shadow:none; } }
+</style>
+</head>
+<body>
+<div class="main">
+<button id="menuToggle">☰</button>
+
+<div class="guide-wrap">
+
+  <div class="toc" role="navigation" aria-label="Guide contents">
+    <a href="#install">1. Install</a>
+    <a href="#welcome">2. First launch</a>
+    <a href="#activate">3. Activate</a>
+    <a href="#dashboard">4. Dashboard</a>
+    <a href="#course">5. Lessons</a>
+    <a href="#practice">6. Practice</a>
+    <a href="#paragraph">7. Long paragraphs</a>
+    <a href="#progress">8. Progress</a>
+    <a href="#themes">9. Themes</a>
+    <a href="#shortcuts">10. Shortcuts</a>
+    <a href="#faq">11. FAQ</a>
+  </div>
+
+  <section class="step" id="install">
+    <h2><span class="num">1</span>Install the software</h2>
+    <ol>
+      <li>Run <b>Smartech-Typing-Tutor-Setup</b> and follow the installer.</li>
+      <li>Choose the folder you want (the default is fine) and keep <b>Create desktop shortcut</b> ticked.</li>
+      <li>Open <b>Smartech Typing Tutor</b> from the desktop shortcut or the Start menu.</li>
+    </ol>
+    <div class="tip"><b>Windows 7 / 8 / 8.1:</b> use the separate <i>Win7 32-bit</i> installer. The standard installer supports Windows 10 and 11.</div>
+  </section>
+
+  <section class="step" id="welcome">
+    <h2><span class="num">2</span>First launch: enter your name</h2>
+    <p>The first time the app opens it asks for your name and an optional roll number. Your results and certificates are saved under this name automatically, so you never have to type it before a test.</p>
+    <figure class="shot"><img src="guide_img/01-welcome.jpg" alt="Welcome screen asking for the student name"><figcaption>Enter your name once. Use "change name" in the sidebar to edit it later.</figcaption></figure>
+  </section>
+
+  <section class="step" id="activate">
+    <h2><span class="num">3</span>Activate your courses</h2>
+    <p>Each course (English, Punjabi, Hindi) is unlocked with its own activation code from your institute. Open <b>Activation</b> in the sidebar.</p>
+    <ol>
+      <li>Type or paste the code for the course into its box.</li>
+      <li>Press <b>Activate</b>. An internet connection is needed for this step only.</li>
+      <li>The card turns green and shows the expiry date and days remaining.</li>
+    </ol>
+    <figure class="shot"><img src="guide_img/03-activation.jpg" alt="Activation page with three course cards and the device ID"><figcaption>The Activation page shows your Device ID and the status of each course.</figcaption></figure>
+    <div class="tip"><b>Moving to a new computer?</b> Click <b>Deactivate</b> on the old computer first, then activate on the new one. If the old computer is not available, send your institute the Device ID shown on this page.</div>
+  </section>
+
+  <section class="step" id="dashboard">
+    <h2><span class="num">4</span>The Dashboard</h2>
+    <p>The Dashboard is your home screen. Use the big buttons to jump into English, Punjabi or Hindi practice, see your personal stats and view today's top scorers.</p>
+    <figure class="shot"><img src="guide_img/02-dashboard.jpg" alt="Dashboard with sidebar menu and course buttons"><figcaption>Open the sidebar with the ☰ button at the top-left of every page.</figcaption></figure>
+  </section>
+
+  <section class="step" id="course">
+    <h2><span class="num">5</span>Pick a lesson</h2>
+    <p>Each course starts with step-by-step lessons: home row, top row, bottom row, numbers, symbols, Shift keys and common words. Choose any lesson to begin. Below the lessons you will find the <b>Speed Test</b> and the <b>Long Paragraph</b> exercises.</p>
+    <figure class="shot"><img src="guide_img/04-course.jpg" alt="English Typing Course page with the lesson grid"><figcaption>Start with Lesson 1 if you are a beginner.</figcaption></figure>
+  </section>
+
+  <section class="step" id="practice">
+    <h2><span class="num">6</span>Take a practice test</h2>
+    <p>The text to copy is shown in the <b>Reference</b> box. Type it in the <b>Typing</b> box below, exactly as shown including capitals and punctuation. A timer runs at the top.</p>
+    <figure class="shot"><img src="guide_img/06-typing.jpg" alt="Typing practice page while a student is typing"><figcaption>The exercise number is shown in the page heading. Reference text on top, your typing below, timer at the top-left.</figcaption></figure>
+    <p style="margin-top:14px">When time ends (or you finish), the <b>exercise number</b>, your <b>gross speed (WPM)</b>, <b>accuracy</b>, backspace count and <b>Pass / Fail</b> result are shown and saved. A Pass automatically creates a certificate.</p>
+    <p style="margin-top:14px">For a quick timed drill, open <b>Speed Test</b> from the course page. Choose <b>1 Minute</b> or <b>5 Minutes</b>, then start typing: the timer begins with your first key. Press <b>Space</b> after each word. Speed, accuracy and word counts update live, and a result card with your WPM appears when time is up.</p>
+    <figure class="shot"><img src="guide_img/05-practice.jpg" alt="Speed Test page with timer, live speed and accuracy tiles"><figcaption>Speed Test: green words are correct, red words have mistakes, the dark word is the one to type next.</figcaption></figure>
+    <div class="tip"><b>How speed is calculated:</b> Gross speed (WPM) = total characters ÷ 5 ÷ minutes. One word counts as five characters. Accuracy matters as much as speed in real exams.</div>
+  </section>
+
+  <section class="step" id="paragraph">
+    <h2><span class="num">7</span>Long paragraph exercises</h2>
+    <p>For full exam-style passages, open <b>Long Paragraph Practice</b> from any course page and choose an exercise. New exercises are added by your institute and download automatically when the computer is online. They are kept on the computer so they still work offline.</p>
+    <figure class="shot"><img src="guide_img/07-paragraph-list.jpg" alt="List of long paragraph exercises"><figcaption>Tap an exercise to start the test.</figcaption></figure>
+  </section>
+
+  <section class="step" id="progress">
+    <h2><span class="num">8</span>Track your progress and certificates</h2>
+    <p>Open <b>My Progress</b> to see the tests you have taken in the last 3 days (older results are removed automatically): which exercise it was, speed, accuracy and result. Earned certificates are listed on the same page, and you can export that history to a CSV file that opens in Excel.</p>
+    <figure class="shot"><img src="guide_img/08-progress.jpg" alt="My Progress page with stats, history and certificates"><figcaption>Your history stays on this computer and covers the last 3 days.</figcaption></figure>
+  </section>
+
+  <section class="step" id="themes">
+    <h2><span class="num">9</span>Change the look</h2>
+    <p>At the bottom of the sidebar, pick one of three colour themes (Ink &amp; Gold, Silver Steel, Pearl Ivory). Your choice is remembered. Use <kbd>Ctrl</kbd> + <kbd>+</kbd> / <kbd>-</kbd> to make everything larger or smaller, and <kbd>Ctrl</kbd> + <kbd>0</kbd> to reset.</p>
+  </section>
+
+  <section class="step" id="shortcuts">
+    <h2><span class="num">10</span>Handy shortcuts</h2>
+    <table class="ref">
+      <tr><th>Key</th><th>What it does</th></tr>
+      <tr><td><kbd>F11</kbd></td><td>Full screen on or off (recommended for tests)</td></tr>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>+</kbd> / <kbd>-</kbd></td><td>Zoom in / out</td></tr>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>0</kbd></td><td>Reset zoom</td></tr>
+      <tr><td>☰ button</td><td>Open or close the sidebar menu</td></tr>
+    </table>
+    <p class="tip" style="margin-top:14px"><b>Note:</b> copy, paste and right-click are switched off inside the app on purpose, to match real exam conditions.</p>
+  </section>
+
+  <section class="step" id="faq">
+    <h2><span class="num">11</span>Questions and troubleshooting</h2>
+    <table class="ref">
+      <tr><th>Problem</th><th>What to do</th></tr>
+      <tr><td>"Invalid activation code"</td><td>Check the code for typing mistakes and make sure you used the code for the right course.</td></tr>
+      <tr><td>"Already activated on another computer"</td><td>Deactivate it on the old computer, or contact your institute with your Device ID.</td></tr>
+      <tr><td>Course asks to activate again</td><td>The 90-day activation has ended. Ask your institute for a new code.</td></tr>
+      <tr><td>Activation fails</td><td>Check the internet connection. Activation is the only step that needs it.</td></tr>
+      <tr><td>Punjabi or Hindi letters do not appear</td><td>Add the language and keyboard layout in Windows Settings &gt; Time &amp; Language, then switch to it with <kbd>Alt</kbd> + <kbd>Shift</kbd>.</td></tr>
+      <tr><td>Leaderboard is empty</td><td>It needs an internet connection. Your own results are always saved on the computer.</td></tr>
+    </table>
+    <p style="margin-top:14px">Still stuck? Open <a href="contact.html">Contact</a> and email us with your Device ID and a short description.</p>
+  </section>
+
+</div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'), im=lb.querySelector('img');
+  document.querySelectorAll('.shot img').forEach(function(i){
+    i.addEventListener('click',function(){ im.src=i.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click',function(){ lb.style.display='none'; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.style.display='none'; });
+})();
+</script>
+</body>
+</html>
