@@ -10,6 +10,27 @@
    - Result UI updates and saved test history (localStorage)
    - Defensive checks for missing DOM elements
 */
+// Block drag and drop
+["dragstart", "drop", "dragover"].forEach(evt =>
+  document.addEventListener(evt, e => e.preventDefault())
+);
+
+// Block selection start (outside the input box)
+document.addEventListener("selectstart", e => {
+  if (!e.target.closest("#typingInput, textarea, input")) e.preventDefault();
+});
+
+// Block copy, cut, paste and right-click
+["copy", "cut", "paste", "contextmenu"].forEach(evt =>
+  document.addEventListener(evt, e => e.preventDefault())
+);
+
+// Block Ctrl/Cmd + A, C, X, V
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey || e.metaKey) && ["a", "c", "x", "v"].includes(e.key.toLowerCase())) {
+    e.preventDefault();
+  }
+});
 // Disable right click
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
