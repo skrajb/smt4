@@ -4,7 +4,25 @@
    navy with a restrained brass accent, a serif display face
    for headings over Inter body text, card-based layout.
    ============================================================ */
+/* Disable selection everywhere */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* iOS long-press menu */
+}
 
+/* But keep typing working in the input box */
+#typingInput, textarea, input[type="text"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Disable dragging of images/links */
+img, a {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
 :root {
   /* ---- core palette ---- */
   --ink: #0B1E36;           /* deep navy-ink — sidebar, headers, dark surfaces */
